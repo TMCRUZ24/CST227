@@ -1,0 +1,7 @@
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\bin\Debug\Course Project.exe.config
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\bin\Debug\Course Project.exe
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\bin\Debug\Course Project.pdb
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\obj\Debug\Course Project.csprojAssemblyReference.cache
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\obj\Debug\Course Project.csproj.CoreCompileInputs.cache
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\obj\Debug\Course Project.exe
+C:\Users\tycru\Documents\GCU\CST227 - Enterprise Applications Programming II\Course Project\Course Project\Course Project\obj\Debug\Course Project.pdb
