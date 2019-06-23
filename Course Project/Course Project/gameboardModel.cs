@@ -6,81 +6,88 @@ using System.Threading.Tasks;
 
 namespace Course_Project
 {
-    class gameboardModel{
+    abstract class gameboardModel{
 
-        public int numOfColumns { set; get; }
-        public int numOfRows { set; get; }
-        public cell[,] gameboard { set; get; }
+        public bool PlayerLost { set; get; }
+        public int NumOfColumns { set; get; }
+        public int NumOfRows { set; get; }
+        public cell[,] Gameboard { set; get; }
+        public int SafeTiles { set; get; }
 
-        //constructor
-        public gameboardModel(int numOfRows, int numOfColumns){
-            this.numOfRows = numOfRows;
-            this.numOfColumns = numOfColumns;
-
-            this.gameboard = new cell[numOfRows, numOfColumns];
+        public gameboardModel()
+        {
+            this.NumOfRows = 10;
+            this.NumOfColumns = 10;
+            this.SafeTiles = NumOfColumns * NumOfRows;
+            this.Gameboard = new cell[10, 10];
         }
-        
-        public void setGameBoard(){
-            //Gameboard will contain 20% "live" cells
-            int numOfLiveCells = (numOfColumns * numOfRows) / 5;
-            int counter = 0;
-            Random rand = new Random();
 
-            //initialize gameboard to "false" live cells
-            for (int row = 0; row < numOfRows; row++){
-                for (int column = 0; column < numOfColumns; column++){
-                    gameboard[row, column] = new cell(row, column);
+        public void setGameBoard(){
+            //initialize gameboard without live cells
+            for (int row = 0; row < NumOfRows; row++)
+            {
+                for (int column = 0; column < NumOfColumns; column++)
+                {
+                    Gameboard[row, column] = new cell(row, column);
                 }
             }
 
+            //Gameboard will contain 20% "live" cells
+            int numOfLiveCells = (NumOfColumns * NumOfRows) / 5;
+            int counter = 0;
+            Random rand = new Random();
+
             //set gameboard with "live" cells
             do{
-                int rowRand = rand.Next(numOfRows);
-                int columnRand = rand.Next(numOfColumns);
+                int rowRand = rand.Next(NumOfRows);
+                int columnRand = rand.Next(NumOfColumns);
 
                 //Random live cell placement on the gameboard
-                gameboard[rowRand, columnRand].isLive = true;
+                if (Gameboard[rowRand, columnRand].IsLive == false){
+                    Gameboard[rowRand, columnRand].IsLive = true;
+                    this.SafeTiles--;
+                }
 
                 //Increment "Number of Live Neighbors" value for row above live cell
                 if (rowRand > 0)
                 {
                     if (columnRand > 0)
                     {
-                        gameboard[rowRand - 1, columnRand - 1].numberOfLiveNeighbors++;
+                        Gameboard[rowRand - 1, columnRand - 1].NumberOfLiveNeighbors++;
                     }
 
-                    gameboard[rowRand - 1, columnRand].numberOfLiveNeighbors++;
+                    Gameboard[rowRand - 1, columnRand].NumberOfLiveNeighbors++;
 
-                    if (numOfColumns - 1 > columnRand)
+                    if (NumOfColumns - 1 > columnRand)
                     {
-                        gameboard[rowRand - 1, columnRand + 1].numberOfLiveNeighbors++;
+                        Gameboard[rowRand - 1, columnRand + 1].NumberOfLiveNeighbors++;
                     }
                 }
 
                 //Increment "Number of Live Neighbors" value for same row as live cell
                 if (columnRand > 0)
                 {
-                    gameboard[rowRand, columnRand - 1].numberOfLiveNeighbors++;
+                    Gameboard[rowRand, columnRand - 1].NumberOfLiveNeighbors++;
                 }
 
-                if (columnRand < numOfColumns - 1)
+                if (columnRand < NumOfColumns - 1)
                 {
-                    gameboard[rowRand, columnRand + 1].numberOfLiveNeighbors++;
+                    Gameboard[rowRand, columnRand + 1].NumberOfLiveNeighbors++;
                 }
 
                 //Increment "Number of Live Neighbors" value for row below live cell
-                if (rowRand < numOfRows - 1)
+                if (rowRand < NumOfRows - 1)
                 {
                     if (columnRand > 0)
                     {
-                        gameboard[rowRand + 1, columnRand - 1].numberOfLiveNeighbors++;
+                        Gameboard[rowRand + 1, columnRand - 1].NumberOfLiveNeighbors++;
                     }
 
-                    gameboard[rowRand + 1, columnRand].numberOfLiveNeighbors++;
+                    Gameboard[rowRand + 1, columnRand].NumberOfLiveNeighbors++;
 
-                    if (columnRand < numOfColumns - 1)
+                    if (columnRand < NumOfColumns - 1)
                     {
-                        gameboard[rowRand + 1, columnRand + 1].numberOfLiveNeighbors++;
+                        Gameboard[rowRand + 1, columnRand + 1].NumberOfLiveNeighbors++;
                     }
                 }
 
@@ -88,22 +95,50 @@ namespace Course_Project
             } while (counter < numOfLiveCells);
         }
 
-        public void displayGameboard(){
-            Console.WriteLine("Game on...");
-            for(int row = 0; row < numOfRows; row++){
-                for (int column = 0; column < numOfColumns; column++){
-                    if (gameboard[row, column].isLive == true){
+        public void displayEntireBoard(bool playerLost)
+        {
+            Console.Write("  ");
+            for (int column = 0; column < NumOfColumns; column++)
+            {
+                Console.Write(column);
+            }
+            Console.WriteLine("");
+            
+            for (int row = 0; row < NumOfRows; row++)
+            {
+                Console.Write(row);
+                Console.Write("|");
+                for (int column = 0; column <NumOfColumns; column++)
+                {
+                    if (Gameboard[row, column].IsLive == true)
+                    {
                         Console.Write("*");
                     }
-                    else if(gameboard[row, column].numberOfLiveNeighbors > 0){
-                        Console.Write(gameboard[row, column].numberOfLiveNeighbors);
+                    else if (Gameboard[row, column].NumberOfLiveNeighbors > 0)
+                    {
+                        Console.Write(Gameboard[row, column].NumberOfLiveNeighbors);
                     }
-                    else{
-                        Console.Write(" ");
+                    else
+                    {
+                        Console.Write("~");
                     }
                 }
                 Console.WriteLine("");
             }
+            if (!playerLost)
+            {
+                Console.WriteLine("You hit a mine! You Lose!!");
+                Environment.Exit(1);
+            }
+            else
+            {
+                Console.WriteLine("Congratulations! You win!!");
+                Environment.Exit(1);
+            }
         }
+
+        public abstract void playGame();
+
+        public abstract void displayGameboard();
     }
 }

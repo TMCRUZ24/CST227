@@ -19,10 +19,9 @@ namespace Course_Project
             int numOfColumns;
             Int32.TryParse(input, out numOfColumns);
 
-            gameboardModel myGameboard = new gameboardModel(numOfRows, numOfColumns);
+            gameboardModel myGameboard = new Minesweeper(numOfRows, numOfColumns);
             myGameboard.setGameBoard();
-            myGameboard.displayGameboard();
-
+            myGameboard.playGame();
         }
     }
 }

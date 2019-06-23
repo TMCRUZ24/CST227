@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="cell.cs" />
     <Compile Include="gameboardModel.cs" />
+    <Compile Include="IPlayable.cs" />
+    <Compile Include="Minesweeper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

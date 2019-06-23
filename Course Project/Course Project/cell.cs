@@ -9,28 +9,22 @@ namespace Course_Project
     class cell{
 
         //Properties
-        public int columnX { get; set; }
-        public int rowY { get; set; }
-        public bool wasVisited { get; set; }
-        public bool isLive { get; set; }
-        public int numberOfLiveNeighbors { get; set; }
+        public int ColumnX { get; set; }
+        public int RowY { get; set; }
+        public bool WasVisited { get; set; }
+        public bool IsLive { get; set; }
+        public int NumberOfLiveNeighbors { get; set; }
+        public String DisplayTile { get; set; }
 
         //Constructor
         public cell(int rowY, int columnX)
         {
-            this.columnX = columnX;
-            this.rowY = rowY;
-            this.wasVisited = false;
-            this.isLive = false;
-            this.numberOfLiveNeighbors = 0;
+            this.ColumnX = columnX;
+            this.RowY = rowY;
+            this.WasVisited = false;
+            this.IsLive = false;
+            this.NumberOfLiveNeighbors = 0;
+            this.DisplayTile = "?";
         }
-
-       /* //Getter and Setter methods for properties
-        public int ColumnX { get => columnX; set => columnX = value; }
-        public int RowY { get => rowY; set => rowY = value; }
-        public bool WasVisited { get => wasVisited; set => wasVisited = value; }
-        public bool IsLive { get => isLive; set => isLive = value; }
-        public int NumberOfLiveNeighbors { get => numberOfLiveNeighbors; set => numberOfLiveNeighbors = value; }
-        */
     }
 }
