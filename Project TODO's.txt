@@ -1,0 +1,2 @@
+--Add "Number of Mines Remaining" counter at the top of the game
+      --Flags should decrement this number when used
